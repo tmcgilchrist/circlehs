@@ -29,7 +29,7 @@ extra-source-files:    CHANGELOG.md
 
 cabal-version:       >=1.10
 
-tested-with:         GHC == 8.0.2, GHC 8.2.2, GHC 8.4.4
+tested-with:         GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.4
 
 library
   hs-source-dirs:       src
@@ -74,6 +74,8 @@ test-suite              test
   type:               exitcode-stdio-1.0
   main-is:            test.hs
   hs-source-dirs:     test
-  build-depends:      base                      >= 4.7 && < 5
-                    , circleci
+  build-depends:      base                      >= 4.7      && < 5
+                    , circlehs
+                    , directory                 >= 1.2      && < 1.4
+                    , process                   >= 1.2      && < 1.7
 
