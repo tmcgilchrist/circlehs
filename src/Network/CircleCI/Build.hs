@@ -13,38 +13,37 @@ API calls for triggering and querying builds.
 {-# LANGUAGE MultiWayIf #-}
 
 module Network.CircleCI.Build (
-    -- * API calls
-      triggerBuild
-    , getBuild
-    -- * Types for calls and response
-    -- ** Querying
-    , BuildInfo(..)
-    , BuildOutcome(..)
-    , BuildLifecycle(..)
-    -- ** Triggering
-    , TagName
-    , Revision
-    , TriggerBuildOptions(..)
-    , BuildTarget(..)
-    -- ** General
-    , module Network.CircleCI.Common.Types
-    , module Network.CircleCI.Common.Run
-) where
+  -- * API calls
+    triggerBuild
+  , getBuild
+  -- * Types for calls and response
+  -- ** Querying
+  , BuildInfo(..)
+  , BuildOutcome(..)
+  , BuildLifecycle(..)
+  -- ** Triggering
+  , TagName
+  , Revision
+  , TriggerBuildOptions(..)
+  , BuildTarget(..)
+  -- ** General
+  , module X
+  ) where
 
-import           Network.CircleCI.Common.Lift
-import           Network.CircleCI.Common.Types
-import           Network.CircleCI.Common.Run
+import           Network.CircleCI.Common.Lift ( liftClientM )
+import           Network.CircleCI.Common.Types as X
+import           Network.CircleCI.Common.Run as X
 
-import           Control.Monad                  ( mzero )
-import           Control.Monad.Reader           ( ask )
-import           Data.Aeson
-import           Data.Aeson.Types
-import qualified Data.Proxy                     as P
-import           Data.Text                      ( Text )
-import           Data.HashMap.Strict            ( HashMap )
+import           Control.Monad ( mzero )
+import           Control.Monad.Reader ( ask )
+import           Data.Aeson ( FromJSON (..), ToJSON (..), Value (..), object, (.=), (.:), (.:?))
+import           Data.Aeson.Types ( Parser )
+import           Data.HashMap.Strict ( HashMap )
+import qualified Data.Proxy as P
+import           Data.Text ( Text )
 
-import           Servant.API
-import           Servant.Client
+import           Servant.API (QueryParam, (:>), Capture, Get, Post, JSON, ReqBody, (:<|>) (..))
+import           Servant.Client ( ClientM, client )
 
 -- | The name of a git tag.
 type TagName = Text

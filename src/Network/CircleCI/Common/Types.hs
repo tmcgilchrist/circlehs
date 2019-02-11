@@ -11,23 +11,23 @@ Common types for work with CircleCI API.
 -}
 
 module Network.CircleCI.Common.Types (
-      AccountAPIToken (..)
-    , Token
-    , UserName
-    , ProjectName
-    , BranchName
-    , BuildNumber (..)
-    , Email
-    , CircleCIResponse
-    , ProjectPoint (..)
-    , ErrorMessage
-) where
+    AccountAPIToken (..)
+  , Token
+  , UserName
+  , ProjectName
+  , BranchName
+  , BuildNumber (..)
+  , Email
+  , CircleCIResponse
+  , ProjectPoint (..)
+  , ErrorMessage
+  ) where
 
-import           Servant.Client
-import           Servant.API
-import           Data.Aeson
-import           Data.Text                ( Text )
-import           Control.Monad.Reader
+import Control.Monad.Reader ( ReaderT )
+import Data.Aeson ( ToJSON, FromJSON )
+import Data.Text ( Text )
+import Servant.API ( ToHttpApiData )
+import Servant.Client ( ServantError )
 
 -- import CircleCI.Common.Run
 
@@ -64,4 +64,3 @@ data ProjectPoint = ProjectPoint
 
 -- | Message about some problem.
 type ErrorMessage = Text
-

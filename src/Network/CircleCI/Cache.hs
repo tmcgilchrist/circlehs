@@ -14,27 +14,26 @@ API call for work with project build's cache.
 {-# LANGUAGE MultiWayIf #-}
 
 module Network.CircleCI.Cache (
-    -- * API call
-      clearCache
-    -- * Type for response
-    , CacheCleared (..)
-    , module Network.CircleCI.Common.Types
-    , module Network.CircleCI.Common.Run
-) where
+  -- * API call
+    clearCache
+  -- * Type for response
+  , CacheCleared (..)
+  , module X
+  ) where
 
-import           Network.CircleCI.Common.Lift
-import           Network.CircleCI.Common.Types
-import           Network.CircleCI.Common.Run
+import           Network.CircleCI.Common.Lift ( liftClientM )
+import           Network.CircleCI.Common.Types as X
+import           Network.CircleCI.Common.Run as X
 
 import           Control.Monad                  ( mzero )
 import           Control.Monad.Reader           ( ask )
-import           Data.Aeson
-import           Data.Aeson.Types
+import           Data.Aeson ( FromJSON (..), Value (..), (.:))
+import           Data.Aeson.Types ( Parser )
 import qualified Data.Proxy                     as P
 import           Data.Text                      ( Text )
 
-import           Servant.API
-import           Servant.Client
+import           Servant.API ( QueryParam, (:>), Capture, Delete, JSON )
+import           Servant.Client ( ClientM, client )
 
 -- | Clears build cache. Based on https://circleci.com/docs/api/#clear-cache.
 --
@@ -111,4 +110,3 @@ servantClearCache = client cacheAPI
 
 cacheAPI :: P.Proxy CacheAPI
 cacheAPI = P.Proxy
-

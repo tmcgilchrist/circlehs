@@ -14,34 +14,34 @@ API calls for work with User info.
 {-# LANGUAGE MultiWayIf #-}
 
 module Network.CircleCI.User (
-    -- * API call
-      getUserInfo
-    -- * Types for calls and response
-    , UserInfo (..)
-    , ProjectShortInfo (..)
-    , EmailNotification (..)
-    , Plan (..)
-    , GitHubOAuth (..)
-    , AnalyticsId
-    , module Network.CircleCI.Common.Types
-    , module Network.CircleCI.Common.Run
-) where
+  -- * API call
+    getUserInfo
+  -- * Types for calls and response
+  , UserInfo (..)
+  , ProjectShortInfo (..)
+  , EmailNotification (..)
+  , Plan (..)
+  , GitHubOAuth (..)
+  , AnalyticsId
+  , module X
+  ) where
 
-import           Network.CircleCI.Common.Lift
-import           Network.CircleCI.Common.Types
-import           Network.CircleCI.Common.Run
+import           Network.CircleCI.Common.Lift ( liftClientM )
+import           Network.CircleCI.Common.Types ( Token, CircleCIResponse, AccountAPIToken(..) )
+import           Network.CircleCI.Common.Types as X
+import           Network.CircleCI.Common.Run as X
 
-import           Control.Monad                  ( mzero )
-import           Control.Monad.Reader           ( ask )
-import           Data.Aeson
-import           Data.Aeson.Types
-import           Data.HashMap.Strict
-import qualified Data.Proxy                     as P
-import           Data.Text                      ( Text )
-import           Data.Time.Clock                ( UTCTime )
+import           Control.Monad ( mzero )
+import           Control.Monad.Reader ( ask )
+import           Data.Aeson ( FromJSON(..), Value (..), (.:), (.:?), (.!=) )
+import           Data.Aeson.Types ( Parser )
+import           Data.HashMap.Strict ( HashMap, toList )
+import qualified Data.Proxy as P
+import           Data.Text ( Text )
+import           Data.Time.Clock ( UTCTime )
 
-import           Servant.API
-import           Servant.Client
+import           Servant.API ( (:>), QueryParam, Get, JSON )
+import           Servant.Client ( ClientM, client )
 
 -- | Show info about user. Based on https://circleci.com/docs/api/#user.
 --
@@ -199,4 +199,3 @@ servantGetUserInfo = client userAPI
 
 userAPI :: P.Proxy UserAPI
 userAPI = P.Proxy
-

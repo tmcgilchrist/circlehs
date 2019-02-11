@@ -16,34 +16,34 @@ For more info please see "Checkout SSH keys" section in your CircleCI project's 
 {-# LANGUAGE MultiWayIf #-}
 
 module Network.CircleCI.CheckoutKey (
-    -- * API calls
-      getCheckoutKeys
-    , getCheckoutKey
-    , createCheckoutKey
-    , deleteCheckoutKey
-    -- * Types for calls and responses
-    , Fingerprint (..)
-    , CheckoutKeyInfo (..)
-    , CheckoutKeyType (..)
-    , CheckoutKeyDeleted (..)
-    , module Network.CircleCI.Common.Types
-    , module Network.CircleCI.Common.Run
-) where
+  -- * API calls
+    getCheckoutKeys
+  , getCheckoutKey
+  , createCheckoutKey
+  , deleteCheckoutKey
+  -- * Types for calls and responses
+  , Fingerprint (..)
+  , CheckoutKeyInfo (..)
+  , CheckoutKeyType (..)
+  , CheckoutKeyDeleted (..)
+  , module X
+  ) where
 
-import           Network.CircleCI.Common.Types
-import           Network.CircleCI.Common.Lift
-import           Network.CircleCI.Common.Run
+import           Network.CircleCI.Common.Lift as X
+import           Network.CircleCI.Common.Run as X
+import           Network.CircleCI.Common.Types ( Token, UserName, ProjectName, ProjectPoint (..)
+                                               , CircleCIResponse, ErrorMessage, AccountAPIToken (..))
 
 import           Control.Monad                  ( mzero )
 import           Control.Monad.Reader           ( ask )
-import           Data.Aeson
-import           Data.Aeson.Types
+import           Data.Aeson ( FromJSON (..), Value (..), (.:))
+import           Data.Aeson.Types ( Parser )
 import qualified Data.Proxy                     as P
 import           Data.Text                      ( Text )
 import           Data.Time.Clock                ( UTCTime )
 
-import           Servant.API
-import           Servant.Client
+import           Servant.API (QueryParam, (:>), Capture, Get, Delete, Post, JSON, (:<|>) (..))
+import           Servant.Client ( ClientM, client )
 
 -- | Shows list of checkout keys. Based on https://circleci.com/docs/api/#list-checkout-keys.
 --
@@ -296,4 +296,3 @@ servantGetCheckoutKeys
 
 checkoutKeyAPI :: P.Proxy CheckoutKeyAPI
 checkoutKeyAPI = P.Proxy
-

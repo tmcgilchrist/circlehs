@@ -10,13 +10,13 @@ Lift @servant-client@ computations into the 'CircleCIResponse' monad.
 
 module Network.CircleCI.Common.Lift (
     liftClientM
-) where
+  ) where
 
-import           Servant.Client hiding (manager)
-import           Control.Monad.Reader
-import           Network.CircleCI.Common.HTTPS
-import           Network.CircleCI.Common.Types
-import           Network.CircleCI.Common.URL
+import Control.Monad.Reader ( liftIO )
+import Network.CircleCI.Common.HTTPS ( httpsManager )
+import Network.CircleCI.Common.Types ( CircleCIResponse )
+import Network.CircleCI.Common.URL ( apiBaseUrl )
+import Servant.Client ( ClientM, mkClientEnv, runClientM )
 
 -- | Lift a 'ClientM' computation into the 'CircleCIResponse' monad.
 liftClientM :: ClientM a -> CircleCIResponse a
