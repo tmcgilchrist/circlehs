@@ -1,0 +1,326 @@
+
+./Setup.hs,15
+main main1,2
+
+./test/Main.hs,52
+module Main Main3,4
+main main5,6
+main main6,7
+
+./src/Network/CircleCI/Environment.hs,1259
+module Network.CircleCI.Environment Network.CircleCI.Environment17,18
+type EnvVarName EnvVarName46,47
+getEnvVars getEnvVars65,66
+getEnvVars getEnvVars67,68
+getEnvVar getEnvVar93,94
+getEnvVar getEnvVar96,97
+addEnvVar addEnvVar124,125
+addEnvVar addEnvVar127,128
+deleteEnvVar deleteEnvVar154,155
+deleteEnvVar deleteEnvVar157,158
+data EnvVar EnvVar166,167
+data EnvVar = EnvVar EnvVar166,167
+      name name167,168
+    , value value168,169
+instance instance172,173
+data EnvVarDeleted EnvVarDeleted186,187
+data EnvVarDeleted = EnvVarSuccessfullyDeletedEnvVarSuccessfullyDeleted186,187
+                   | UnableToDeleteEnvVar UnableToDeleteEnvVar187,188
+toEnvVarDeleted toEnvVarDeleted196,197
+toEnvVarDeleted toEnvVarDeleted197,198
+type EnvVarAPI EnvVarAPI206,207
+type GetEnvVarsCall GetEnvVarsCall213,214
+type GetEnvVarCall GetEnvVarCall223,224
+type AddEnvVarCall AddEnvVarCall234,235
+type DeleteEnvVarCall DeleteEnvVarCall246,247
+servantGetEnvVars servantGetEnvVars260,261
+servantGetEnvVar servantGetEnvVar265,266
+servantAddEnvVar servantAddEnvVar271,272
+servantDeleteEnvVar servantDeleteEnvVar277,278
+servantGetEnvVarsservantGetEnvVars283,284
+envVarAPI envVarAPI288,289
+envVarAPI envVarAPI289,290
+
+./src/Network/CircleCI/Project.hs,2936
+module Network.CircleCI.Project Network.CircleCI.Project15,16
+getProjectsInfo getProjectsInfo60,61
+getProjectsInfo getProjectsInfo61,62
+data ProjectInfo ProjectInfo66,67
+data ProjectInfo = ProjectInfo ProjectInfo66,67
+      language language67,68
+    , repositoryName repositoryName68,69
+    , repositoryUrl repositoryUrl69,70
+    , branches branches70,71
+    , defaultBranch defaultBranch71,72
+    , isOpenSource isOpenSource72,73
+    , followed followed73,74
+    , gitHubUserName gitHubUserName74,75
+    , slackChannel slackChannel76,77
+    , slackWebhookUrl slackWebhookUrl77,78
+    , slackNotifyPreferenses slackNotifyPreferenses78,79
+    , slackSubdomain slackSubdomain79,80
+    , slackAPIToken slackAPIToken80,81
+    , hipchatNotifyPreferenses hipchatNotifyPreferenses82,83
+    , hipchatNotify hipchatNotify83,84
+    , hipchatAPIToken hipchatAPIToken84,85
+    , hipchatRoom hipchatRoom85,86
+    , ircServer ircServer87,88
+    , ircKeyword ircKeyword88,89
+    , ircChannel ircChannel89,90
+    , ircUsername ircUsername90,91
+    , ircPassword ircPassword91,92
+    , ircNotifyPreferenses ircNotifyPreferenses92,93
+instance instance96,97
+toBranchesBuildInfo toBranchesBuildInfo123,124
+toBranchesBuildInfo toBranchesBuildInfo124,125
+data RawBranchBuildInfo RawBranchBuildInfo135,136
+data RawBranchBuildInfo = RawBranchBuildInfo RawBranchBuildInfo135,136
+      rawLastSuccessBuild rawLastSuccessBuild136,137
+    , rawLastFailedBuild rawLastFailedBuild137,138
+    , rawPusherLogins rawPusherLogins138,139
+    , rawRecentBuilds rawRecentBuilds139,140
+    , rawRunningBuilds rawRunningBuilds140,141
+data BranchBuildInfo BranchBuildInfo154,155
+data BranchBuildInfo = BranchBuildInfo BranchBuildInfo154,155
+      branchName branchName155,156
+    , lastSuccessBuild lastSuccessBuild156,157
+    , lastFailedBuild lastFailedBuild157,158
+    , pusherLogins pusherLogins158,159
+    , recentBuilds recentBuilds159,160
+    , runningBuilds runningBuilds160,161
+data BuildInfo BuildInfo164,165
+data BuildInfo = BuildInfo BuildInfo164,165
+      status status165,166
+    , number number166,167
+    , commit commit167,168
+    , pushDate pushDate168,169
+    , addingDate addingDate169,170
+toBuildStatus toBuildStatus182,183
+toBuildStatus toBuildStatus183,184
+data BuildStatus BuildStatus191,192
+data BuildStatus = BuildRunningBuildRunning191,192
+                 | BuildSuccessBuildSuccess192,193
+                 | BuildFailedBuildFailed193,194
+                 | BuildCanceledBuildCanceled194,195
+                 | NoTestsNoTests195,196
+type ProjectsInfoAPI ProjectsInfoAPI203,204
+type GetProjectsInfoCall GetProjectsInfoCall206,207
+servantGetProjectsInfo servantGetProjectsInfo216,217
+servantGetProjectsInfo servantGetProjectsInfo218,219
+projectsInfoAPI projectsInfoAPI220,221
+projectsInfoAPI projectsInfoAPI221,222
+
+./src/Network/CircleCI/CheckoutKey.hs,2075
+module Network.CircleCI.CheckoutKey Network.CircleCI.CheckoutKey17,18
+getCheckoutKeys getCheckoutKeys64,65
+getCheckoutKeys getCheckoutKeys66,67
+getCheckoutKey getCheckoutKey93,94
+getCheckoutKey getCheckoutKey96,97
+createCheckoutKey createCheckoutKey121,122
+createCheckoutKey createCheckoutKey123,124
+deleteCheckoutKey deleteCheckoutKey150,151
+deleteCheckoutKey deleteCheckoutKey153,154
+newtype Fingerprint Fingerprint162,163
+newtype Fingerprint = Fingerprint Fingerprint162,163
+data CheckoutKeyType CheckoutKeyType166,167
+data CheckoutKeyType = GitHubDeployKey GitHubDeployKey166,167
+                     | GitHubUserKey GitHubUserKey167,168
+data CheckoutKeyInfo CheckoutKeyInfo171,172
+data CheckoutKeyInfo = CheckoutKeyInfo CheckoutKeyInfo171,172
+      publicKey publicKey172,173
+    , keyType keyType173,174
+    , fingerprint fingerprint174,175
+    , preferred preferred175,176
+    , issueDate issueDate176,177
+instance instance180,181
+toCheckoutKeyType toCheckoutKeyType189,190
+toCheckoutKeyType toCheckoutKeyType190,191
+toFingerprint toFingerprint194,195
+toFingerprint toFingerprint195,196
+data CheckoutKeyDeleted CheckoutKeyDeleted198,199
+data CheckoutKeyDeleted = KeySuccessfullyDeletedKeySuccessfullyDeleted198,199
+                        | UnableToDeleteKey UnableToDeleteKey199,200
+toCheckoutKeyDeleted toCheckoutKeyDeleted208,209
+toCheckoutKeyDeleted toCheckoutKeyDeleted209,210
+type CheckoutKeyAPI CheckoutKeyAPI217,218
+type GetCheckoutKeysCall GetCheckoutKeysCall224,225
+type GetCheckoutKeyCall GetCheckoutKeyCall234,235
+type CreateCheckoutKeyCall CreateCheckoutKeyCall245,246
+type DeleteCheckoutKeyCall DeleteCheckoutKeyCall255,256
+servantGetCheckoutKeys servantGetCheckoutKeys269,270
+servantGetCheckoutKey servantGetCheckoutKey274,275
+servantCreateCheckoutKey servantCreateCheckoutKey280,281
+servantDeleteCheckoutKey servantDeleteCheckoutKey285,286
+servantGetCheckoutKeysservantGetCheckoutKeys291,292
+checkoutKeyAPI checkoutKeyAPI296,297
+checkoutKeyAPI checkoutKeyAPI297,298
+
+./src/Network/CircleCI/Common/URL.hs,128
+module Network.CircleCI.Common.URL Network.CircleCI.Common.URL10,11
+apiBaseUrl apiBaseUrl17,18
+apiBaseUrl apiBaseUrl18,19
+
+./src/Network/CircleCI/Common/HTTPS.hs,140
+module Network.CircleCI.Common.HTTPS Network.CircleCI.Common.HTTPS10,11
+httpsManager httpsManager19,20
+httpsManager httpsManager20,21
+
+./src/Network/CircleCI/Common/Lift.hs,134
+module Network.CircleCI.Common.Lift Network.CircleCI.Common.Lift10,11
+liftClientM liftClientM21,22
+liftClientM liftClientM22,23
+
+./src/Network/CircleCI/Common/Run.hs,132
+module Network.CircleCI.Common.Run Network.CircleCI.Common.Run10,11
+runCircleCI runCircleCI18,19
+runCircleCI runCircleCI19,20
+
+./src/Network/CircleCI/Common/Types.hs,701
+module Network.CircleCI.Common.Types Network.CircleCI.Common.Types12,13
+newtype AccountAPIToken AccountAPIToken34,35
+newtype AccountAPIToken = AccountAPIToken AccountAPIToken34,35
+type Token Token37,38
+type UserName UserName40,41
+type ProjectName ProjectName43,44
+type BranchName BranchName46,47
+newtype BuildNumber BuildNumber49,50
+newtype BuildNumber = BuildNumber BuildNumber49,50
+type Email Email53,54
+type CircleCIResponse CircleCIResponse56,57
+type CircleCIResponse a a56,57
+data ProjectPoint ProjectPoint59,60
+data ProjectPoint = ProjectPointProjectPoint59,60
+    { userName userName60,61
+    , projectName projectName61,62
+type ErrorMessage ErrorMessage65,66
+
+./src/Network/CircleCI/User.hs,2489
+module Network.CircleCI.User Network.CircleCI.User15,16
+getUserInfo getUserInfo62,63
+getUserInfo getUserInfo63,64
+type AnalyticsId AnalyticsId68,69
+data UserInfo UserInfo71,72
+data UserInfo = UserInfo UserInfo71,72
+      inBetaProgram inBetaProgram72,73
+    , fullName fullName73,74
+    , allEmails allEmails74,75
+    , defaultEmail defaultEmail75,76
+    , basicEmailPreference basicEmailPreference76,77
+    , gitHubAvatarUrl gitHubAvatarUrl77,78
+    , gitHubId gitHubId78,79
+    , gitHubLogin gitHubLogin79,80
+    , gitHubOAuthScopes gitHubOAuthScopes80,81
+    , accountCreatedAt accountCreatedAt81,82
+    , trialEndDate trialEndDate82,83
+    , plan plan83,84
+    , parallelism parallelism84,85
+    , containtersNumber containtersNumber85,86
+    , projects projects86,87
+    , analyticsId analyticsId87,88
+    , pusherId pusherId88,89
+    , herokuAPIKey herokuAPIKey89,90
+instance instance93,94
+data ProjectShortInfo ProjectShortInfo116,117
+data ProjectShortInfo = ProjectShortInfo ProjectShortInfo116,117
+      gitHubURL gitHubURL117,118
+    , onDashboard onDashboard118,119
+    , emailNotification emailNotification119,120
+toProjectsShortInfo toProjectsShortInfo122,123
+toProjectsShortInfo toProjectsShortInfo123,124
+data RawProject RawProject130,131
+data RawProject = RawProject RawProject130,131
+      rawOnDashboard rawOnDashboard131,132
+    , rawEmailNotification rawEmailNotification132,133
+data Plan Plan142,143
+data Plan = Hobbyist Hobbyist142,143
+            | Plan Plan143,144
+toPlan toPlan146,147
+toPlan toPlan147,148
+data EmailNotification EmailNotification151,152
+data EmailNotification = DefaultNotificationDefaultNotification151,152
+                       | AllBuildsNotificationAllBuildsNotification152,153
+                       | BranchesIHavePushedToBranchesIHavePushedTo153,154
+                       | WithoutNotificationWithoutNotification154,155
+toEmailPreference toEmailPreference157,158
+toEmailPreference toEmailPreference158,159
+data GitHubOAuth GitHubOAuth165,166
+data GitHubOAuth = UserEmailOAuthUserEmailOAuth165,166
+                 | RepoOAuthRepoOAuth166,167
+toGitHubOAuth toGitHubOAuth169,170
+toGitHubOAuth toGitHubOAuth170,171
+type UserAPI UserAPI182,183
+type GetUserInfoCall GetUserInfoCall185,186
+servantGetUserInfo servantGetUserInfo195,196
+servantGetUserInfo servantGetUserInfo197,198
+userAPI userAPI199,200
+userAPI userAPI200,201
+
+./src/Network/CircleCI/Build.hs,2122
+module Network.CircleCI.Build Network.CircleCI.Build14,15
+type TagName TagName49,50
+type Revision Revision52,53
+triggerBuild triggerBuild71,72
+triggerBuild triggerBuild72,73
+getBuild getBuild81,82
+getBuild getBuild82,83
+type BuildAPI BuildAPI95,96
+type TriggerBuild TriggerBuild100,101
+data TriggerBuildOptions TriggerBuildOptions109,110
+data TriggerBuildOptions = TriggerBuildOptions TriggerBuildOptions109,110
+      triggerBuildTarget triggerBuildTarget110,111
+    , triggerBuildParams triggerBuildParams111,112
+instance instance114,115
+data BuildTarget BuildTarget126,127
+data BuildTarget = BuildRevision BuildRevision126,127
+                 | BuildTag BuildTag128,129
+                 | BuildHeadBuildHead130,131
+type GetBuild GetBuild134,135
+data BuildInfo BuildInfo144,145
+data BuildInfo = BuildInfo BuildInfo144,145
+      outcome outcome145,146
+    , lifecycle lifecycle146,147
+    , number number147,148
+    , commit commit148,149
+toBuildOutcome toBuildOutcome160,161
+toBuildOutcome toBuildOutcome161,162
+data BuildOutcome BuildOutcome170,171
+data BuildOutcome = BuildSuccessBuildSuccess170,171
+                  | BuildFailedBuildFailed171,172
+                  | BuildCanceledBuildCanceled172,173
+                  | BuildNoTestsBuildNoTests173,174
+                  | BuildInfrastructureFailBuildInfrastructureFail174,175
+                  | BuildTimedOutBuildTimedOut175,176
+toBuildLifecycle toBuildLifecycle178,179
+toBuildLifecycle toBuildLifecycle179,180
+data BuildLifecycle BuildLifecycle188,189
+data BuildLifecycle = BuildQueuedBuildQueued188,189
+                    | BuildScheduledBuildScheduled189,190
+                    | BuildNotRunBuildNotRun190,191
+                    | BuildNotRunningBuildNotRunning191,192
+                    | BuildRunningBuildRunning192,193
+                    | BuildFinishedBuildFinished193,194
+servantTriggerBuild servantTriggerBuild200,201
+servantGetBuild servantGetBuild206,207
+servantTriggerBuildservantTriggerBuild212,213
+buildAPI buildAPI215,216
+buildAPI buildAPI216,217
+
+./src/Network/CircleCI/Cache.hs,612
+module Network.CircleCI.Cache Network.CircleCI.Cache15,16
+clearCache clearCache55,56
+clearCache clearCache57,58
+data CacheCleared CacheCleared65,66
+data CacheCleared = CacheSuccessfullyClearedCacheSuccessfullyCleared65,66
+                  | UnableToClearCache UnableToClearCache66,67
+instance instance70,71
+toCacheCleared toCacheCleared75,76
+toCacheCleared toCacheCleared76,77
+type CacheAPI CacheAPI89,90
+type ClearCacheCall ClearCacheCall92,93
+servantClearCache servantClearCache105,106
+servantClearCache servantClearCache109,110
+cacheAPI cacheAPI111,112
+cacheAPI cacheAPI112,113
+
+./src/Network/CircleCI.hs,48
+module Network.CircleCI Network.CircleCI10,11
