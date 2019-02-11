@@ -10,9 +10,9 @@ Base URL for all CircleCI API calls. Based on https://circleci.com/docs/api/#cal
 
 module Network.CircleCI.Common.URL (
     apiBaseUrl
-) where
+  ) where
 
-import           Servant.Common.BaseUrl
+import           Servant.Client ( BaseUrl (..), Scheme (..) )
 
 -- | Base URL for all API calls. For API v1 it's @https://circleci.com/api/v1/@.
 apiBaseUrl :: BaseUrl
@@ -22,4 +22,3 @@ apiBaseUrl = BaseUrl {
     , baseUrlPort   = 443
     , baseUrlPath   = "/api/v1"
     }
-

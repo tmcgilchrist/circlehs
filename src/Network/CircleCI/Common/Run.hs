@@ -10,12 +10,11 @@ Run 'CircleCIResponse' monad.
 
 module Network.CircleCI.Common.Run (
     runCircleCI
-) where
+  ) where
 
-import           Control.Monad.Reader
+import           Control.Monad.Reader ( ReaderT, runReaderT )
 
 -- | All API calls require account API token, so move it into 'ReaderT' monad
 -- instead of passing it as an explicit argument.
 runCircleCI :: ReaderT t IO a -> t -> IO a
 runCircleCI = runReaderT
-

@@ -14,36 +14,31 @@ API calls for work with info about projects.
 {-# LANGUAGE MultiWayIf #-}
 
 module Network.CircleCI.Project (
-    -- * API call
-      getProjectsInfo
-    -- * Types for calls and response
-    , ProjectInfo (..)
-    , BranchBuildInfo (..)
-    , BuildInfo (..)
-    , BuildStatus (..)
-    , module Network.CircleCI.Common.Types
-    , module Network.CircleCI.Common.Run
-) where
+  -- * API call
+    getProjectsInfo
+  -- * Types for calls and response
+  , ProjectInfo (..)
+  , BranchBuildInfo (..)
+  , BuildInfo (..)
+  , BuildStatus (..)
+  , module X
+  ) where
 
-import           Network.CircleCI.Common.URL
-import           Network.CircleCI.Common.Types
-import           Network.CircleCI.Common.HTTPS
-import           Network.CircleCI.Common.Run
+import           Network.CircleCI.Common.Lift (liftClientM)
+import           Network.CircleCI.Common.Run as X
+import           Network.CircleCI.Common.Types as X
 
-import           Control.Monad                  ( mzero )
-import           Control.Monad.Except           ( runExceptT )
-import           Control.Monad.Reader           ( ask )
-import           Control.Monad.IO.Class         ( liftIO )
-import           Data.Aeson
-import           Data.Aeson.Types
-import           Data.HashMap.Strict
-import qualified Data.Proxy                     as P
-import           Data.Text                      ( Text )
-import           Data.Time.Clock                ( UTCTime )
-import           Network.HTTP.Client            ( Manager )
+import           Control.Monad ( mzero )
+import           Control.Monad.Reader ( ask )
+import           Data.Aeson ( FromJSON (..), Value (..), (.:), (.:?))
+import           Data.Aeson.Types ( Parser )
+import           Data.HashMap.Strict ( HashMap, toList )
+import qualified Data.Proxy as P
+import           Data.Text ( Text )
+import           Data.Time.Clock ( UTCTime )
 
-import           Servant.API
-import           Servant.Client
+import           Servant.API ( QueryParam, (:>), Get, JSON )
+import           Servant.Client ( ClientM, client )
 
 -- | Show info about all projects user is following. Based on https://circleci.com/docs/api/#projects.
 --
@@ -65,11 +60,7 @@ import           Servant.Client
 getProjectsInfo :: CircleCIResponse [ProjectInfo] -- ^ Info about projects.
 getProjectsInfo = do
     AccountAPIToken token <- ask
-    liftIO . runExceptT $ do
-        manager <- httpsManager
-        servantGetProjectsInfo (Just token)
-                               manager
-                               apiBaseUrl
+    liftClientM $ servantGetProjectsInfo (Just token)
 
 -- | Info about single project.
 data ProjectInfo = ProjectInfo {
@@ -223,11 +214,8 @@ type GetProjectsInfoCall =
 -------------------------------------------------------------------------------
 
 servantGetProjectsInfo :: Maybe Token
-                       -> Manager
-                       -> BaseUrl
                        -> ClientM [ProjectInfo]
 servantGetProjectsInfo = client projectsInfoAPI
 
 projectsInfoAPI :: P.Proxy ProjectsInfoAPI
 projectsInfoAPI = P.Proxy
-

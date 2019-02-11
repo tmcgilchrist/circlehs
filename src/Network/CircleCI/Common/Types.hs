@@ -1,3 +1,5 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
 {-|
 Module      : Network.CircleCI.Common.Types
 Copyright   : (c) Denis Shevchenko, 2016
@@ -9,21 +11,23 @@ Common types for work with CircleCI API.
 -}
 
 module Network.CircleCI.Common.Types (
-      AccountAPIToken (..)
-    , Token
-    , UserName
-    , ProjectName
-    , BranchName
-    , BuildNumber (..)
-    , Email
-    , CircleCIResponse
-    , ProjectPoint (..)
-    , ErrorMessage
-) where
+    AccountAPIToken (..)
+  , Token
+  , UserName
+  , ProjectName
+  , BranchName
+  , BuildNumber (..)
+  , Email
+  , CircleCIResponse
+  , ProjectPoint (..)
+  , ErrorMessage
+  ) where
 
-import           Servant.Client
-import           Data.Text                ( Text )
-import           Control.Monad.Reader
+import Control.Monad.Reader ( ReaderT )
+import Data.Aeson ( ToJSON, FromJSON )
+import Data.Text ( Text )
+import Servant.API ( ToHttpApiData )
+import Servant.Client ( ServantError )
 
 -- import CircleCI.Common.Run
 
@@ -44,7 +48,7 @@ type BranchName = Text
 
 -- | Number of project's build on CircleCI.
 newtype BuildNumber = BuildNumber Int
-                    deriving (Eq, Show)
+                    deriving (Eq, Show, ToHttpApiData, FromJSON, ToJSON)
 
 -- | User email address.
 type Email = Text
@@ -60,4 +64,3 @@ data ProjectPoint = ProjectPoint
 
 -- | Message about some problem.
 type ErrorMessage = Text
-
