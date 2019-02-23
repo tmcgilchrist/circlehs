@@ -1,4 +1,6 @@
-[![CircleCI](https://circleci.com/gh/tmcgilchirst/circlehs.svg?style=shield&circle-token=6a0ecfd0e019941c9da7ed3070d6cbaa29e3597d)](https://circleci.com/gh/tmcgilchirst/circlehs)&nbsp;&nbsp;&nbsp;[![Hackage](https://img.shields.io/badge/hackage-v0.0.3-blue.svg)](http://hackage.haskell.org/package/circlehs)
+[![CircleCI](https://circleci.com/gh/tmcgilchrist/circlehs.svg?style=svg)](https://circleci.com/gh/tmcgilchrist/circlehs) [![Hackage](https://img.shields.io/badge/hackage-v0.0.3-blue.svg)](http://hackage.haskell.org/package/circlehs)
+
+
 
 # CircleHs
 
