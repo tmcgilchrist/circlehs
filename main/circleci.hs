@@ -4,6 +4,7 @@ import           BuildInfo_circlehs
 import           DependencyInfo_circlehs
 
 import           Data.String (String)
+import           Data.Semigroup ((<>))
 
 import           Options.Applicative
 import           System.Environment (getArgs)
