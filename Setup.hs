@@ -10,8 +10,13 @@ import           Distribution.Simple (buildHook, defaultMainWithHooks, pkgName, 
 import           Distribution.Simple.Setup (BuildFlags(..), ReplFlags(..), TestFlags(..), fromFlag)
 import           Distribution.Simple.LocalBuildInfo
 import           Distribution.Simple.PackageIndex
-import           Distribution.Simple.Utils (createDirectoryIfMissingVerbose, rewriteFile, rawSystemStdout)
+import           Distribution.Simple.Utils (createDirectoryIfMissingVerbose, rewriteFileEx, rawSystemStdout)
 import           Distribution.Verbosity
+
+#if __GLASGOW_HASKELL__ <= 710
+-- GHC 7.10 and earlier do not support the MIN_VERSION_Cabal macro.
+#define MIN_VERSION_Cabal(a,b,c) 0
+#endif
 
 #if MIN_VERSION_Cabal(2,0,0)
 import           Distribution.Types.PackageName (PackageName, unPackageName)
@@ -70,7 +75,7 @@ genBuildInfo verbosity pkg = do
   gv <- gitVersion verbosity
   let v = showVersion version
   let buildVersion = intercalate "-" [v, t, gv]
-  rewriteFile targetHs $ unlines [
+  rewriteFileEx normal targetHs $ unlines [
       "module " ++ name ++ " where"
     , "import Prelude"
     , "data RuntimeBuildInfo = RuntimeBuildInfo { buildVersion :: String, timestamp :: String, gitVersion :: String }"
@@ -78,10 +83,8 @@ genBuildInfo verbosity pkg = do
     , "buildInfo = RuntimeBuildInfo \"" ++ v ++ "\" \"" ++ t ++ "\" \"" ++ gv ++ "\""
     , "buildInfoVersion :: String"
     , "buildInfoVersion = \"" ++ buildVersion ++ "\""
-    , "cabalVersion :: String"
-    , "cabalVersion = \"" ++ VERSION_Cabal ++ "\""
     ]
-  rewriteFile targetText buildVersion
+  rewriteFileEx normal targetText buildVersion
 
 genDependencyInfo :: Verbosity -> PackageDescription -> LocalBuildInfo -> IO ()
 genDependencyInfo verbosity pkg info = do
@@ -100,7 +103,7 @@ genDependencyInfo verbosity pkg info = do
 
   createDirectoryIfMissingVerbose verbosity True (autogenModulesDirCompat info)
 
-  rewriteFile targetHs $ unlines [
+  rewriteFileEx normal targetHs $ unlines [
       "module " ++ name ++ " where"
     , "import Prelude"
     , "dependencyInfo :: [String]"
