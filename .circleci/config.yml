@@ -1,24 +1,5 @@
 version: 2
 jobs:
-  build-8.0.2_2.0:
-    docker:
-      - image: tmcgilchrist/ci-haskell:ubuntu_xenial-8.0.2_2.0-20180915120131-4210fd6
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-mafia-8.0.2-{{ checksum "circlehs.cabal" }}
-            - mafia-work-
-      - run:
-          name: Build
-          command: ./bin/ci
-
-      - save_cache:
-          paths:
-            - /root/.cabal
-            - /root/.mafia/
-          key: v1-mafia-8.0.2-{{ checksum "circlehs.cabal" }}
-
   build-8.2.2_2.0:
     docker:
       - image: tmcgilchrist/ci-haskell:ubuntu_xenial-8.2.2_2.0-20180915120131-4210fd6
@@ -61,6 +42,5 @@ workflows:
   version: 2
   build:
     jobs:
-      - build-8.0.2_2.0
       - build-8.2.2_2.0
       - build-8.4.4_2.0

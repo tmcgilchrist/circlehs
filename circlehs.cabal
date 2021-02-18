@@ -22,14 +22,14 @@ maintainer:          me@dshevchenko.biz
 copyright:           2016 Denis Shevchenko
 
 category:            API, Web
-build-type:          Simple
+build-type:          Custom
 
 extra-source-files:    CHANGELOG.md
                      , README.md
 
 cabal-version:       >=1.10
 
-tested-with:         GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.4
+tested-with:         GHC == 8.2.2, GHC == 8.4.4
 
 library
   hs-source-dirs:       src
@@ -50,7 +50,7 @@ library
                         , Network.CircleCI.Common.URL
                         , Network.CircleCI.Common.Lift
 
-  build-depends:          base                  >= 4.7      && < 5
+  build-depends:          base                  >= 4.9      && < 5
                         , text                  >= 1.2.2.1  && < 2
                         , aeson                 >= 0.9.0.1  && < 1.5
                         , unordered-containers  >= 0.2.5.1  && < 0.3
@@ -74,8 +74,23 @@ test-suite              test
   type:               exitcode-stdio-1.0
   main-is:            test.hs
   hs-source-dirs:     test
-  build-depends:      base                      >= 4.7      && < 5
+  build-depends:      base                      >= 4.9      && < 5
                     , circlehs
                     , directory                 >= 1.2      && < 1.4
                     , process                   >= 1.2      && < 1.7
 
+executable              circleci
+  default-language:   Haskell2010
+  hs-source-dirs:     gen
+
+  main-is:            ../main/circleci.hs
+
+  ghc-options:        -Wall
+
+  build-depends:        base                    >= 4.9      && < 5
+                      , circlehs                
+                      , optparse-applicative    >= 0.13     && < 0.15
+                      , text                    == 1.2.*
+
+  other-modules:      BuildInfo_circlehs
+                      DependencyInfo_circlehs
